@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discobolus × Toji — The Convergence Programme</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=DM+Mono:wght@300;400;500&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --obsidian: #111113;
+    --ink: #1a1a1f;
+    --charcoal: #252530;
+    --stone: #3a3a45;
+    --dust: #888899;
+    --pale: #b8b8c8;
+    --silver: #d4d4e0;
+    --cream: #f0ede6;
+    --gold: #c8a96e;
+    --gold-muted: #9a7d4a;
+    --amber: #e8b86d;
+    --red: #c04444;
+    --red-muted: #7a2a2a;
+    --blue-faint: #1a1f2e;
+    --serif: 'Cinzel', serif;
+    --mono: 'DM Mono', monospace;
+    --italic: 'IM Fell English', serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--silver);
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ─────────────────────────────────────────── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.35;
+  }
+
+  /* ── HERO ──────────────────────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    position: relative;
+    padding: 60px 24px;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, #1a1a2e 0%, var(--black) 70%);
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .hero-deco {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    overflow: hidden; pointer-events: none;
+  }
+
+  .hero-deco svg {
+    position: absolute;
+    opacity: 0.07;
+  }
+
+  .hero-deco .arc-left {
+    left: -100px; top: -50px; width: 500px;
+  }
+  .hero-deco .arc-right {
+    right: -100px; bottom: -50px; width: 500px;
+    transform: rotate(180deg);
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--gold-muted);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 7vw, 80px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: 0.03em;
+    color: var(--cream);
+    margin-bottom: 12px;
+  }
+
+  .hero-title .x-mark {
+    color: var(--gold);
+    font-weight: 400;
+  }
+
+  .hero-subtitle {
+    font-family: var(--italic);
+    font-style: italic;
+    font-size: clamp(14px, 2.5vw, 22px);
+    color: var(--dust);
+    margin-bottom: 48px;
+    max-width: 480px;
+  }
+
+  .hero-divider {
+    width: 120px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 48px;
+  }
+
+  .hero-stats {
+    display: flex; gap: 40px; flex-wrap: wrap; justify-content: center;
+    margin-bottom: 60px;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dust);
+    margin-top: 6px;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--stone);
+    text-transform: uppercase;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* ── SECTION WRAPPER ─────────────────────────────────────────────── */
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gold-muted);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(22px, 4vw, 36px);
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 32px;
+    line-height: 1.2;
+  }
+
+  .section-divider {
+    width: 60px; height: 1px;
+    background: var(--gold);
+    margin-bottom: 32px;
+  }
+
+  /* ── PHILOSOPHY BLOCK ────────────────────────────────────────────── */
+  .philosophy {
+    background: var(--obsidian);
+    border-top: 1px solid var(--stone);
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .philosophy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  @media (max-width: 600px) {
+    .philosophy-grid { grid-template-columns: 1fr; }
+  }
+
+  .philosophy-col h3 {
+    font-family: var(--serif);
+    font-size: 16px;
+    color: var(--gold);
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+  }
+
+  .philosophy-col p {
+    color: var(--pale);
+    font-size: 12.5px;
+    line-height: 1.8;
+  }
+
+  .philosophy-col .accent {
+    color: var(--cream);
+    font-style: italic;
+  }
+
+  /* ── UPGRADE NOTICE ──────────────────────────────────────────────── */
+  .upgrade-banner {
+    background: linear-gradient(135deg, var(--red-muted) 0%, #3a1010 100%);
+    border: 1px solid var(--red);
+    border-radius: 2px;
+    padding: 20px 24px;
+    margin-bottom: 40px;
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+
+  .upgrade-banner .icon {
+    font-size: 18px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .upgrade-banner h4 {
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--cream);
+    margin-bottom: 6px;
+  }
+
+  .upgrade-banner p {
+    font-size: 11.5px;
+    color: var(--pale);
+    line-height: 1.7;
+  }
+
+  /* ── WEEK SCHEDULE ───────────────────────────────────────────────── */
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-bottom: 48px;
+  }
+
+  @media (max-width: 500px) {
+    .week-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .day-cell {
+    border: 1px solid var(--stone);
+    padding: 10px 6px;
+    text-align: center;
+    background: var(--obsidian);
+    transition: background 0.2s;
+  }
+
+  .day-cell.active {
+    border-color: var(--gold-muted);
+    background: #1a1a14;
+  }
+
+  .day-cell .day-name {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dust);
+    margin-bottom: 6px;
+  }
+
+  .day-cell .day-label {
+    font-family: var(--serif);
+    font-size: 11px;
+    color: var(--cream);
+  }
+
+  .day-cell.active .day-label {
+    color: var(--gold);
+  }
+
+  .day-cell .day-sub {
+    font-size: 9px;
+    color: var(--stone);
+    margin-top: 4px;
+  }
+
+  /* ── DAY CARD ────────────────────────────────────────────────────── */
+  .day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .day-card {
+    background: var(--obsidian);
+    border: 1px solid var(--stone);
+    margin-bottom: 40px;
+    overflow: hidden;
+  }
+
+  .day-card-header {
+    padding: 24px 28px 20px;
+    border-bottom: 1px solid var(--charcoal);
+    background: linear-gradient(135deg, var(--ink) 0%, var(--obsidian) 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .day-card-header .day-number {
+    font-family: var(--serif);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--gold-muted);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .day-card-header h2 {
+    font-family: var(--serif);
+    font-size: clamp(20px, 3vw, 28px);
+    color: var(--cream);
+    font-weight: 600;
+  }
+
+  .day-card-header .day-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 11px;
+    color: var(--dust);
+    flex-wrap: wrap;
+  }
+
+  .day-card-header .day-meta span {
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .day-card-body {
+    padding: 0;
+  }
+
+  /* ── EXERCISE TABLE ──────────────────────────────────────────────── */
+  .ex-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .ex-table thead tr {
+    background: var(--charcoal);
+  }
+
+  .ex-table thead th {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dust);
+    padding: 10px 16px;
+    text-align: left;
+    font-weight: 400;
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .ex-table tbody tr {
+    border-bottom: 1px solid #1e1e26;
+    transition: background 0.15s;
+  }
+
+  .ex-table tbody tr:hover {
+    background: #15151e;
+  }
+
+  .ex-table tbody tr.new-exercise {
+    background: #111118;
+  }
+
+  .ex-table tbody tr.new-exercise td:first-child::before {
+    content: '★ ';
+    color: var(--gold);
+    font-size: 10px;
+  }
+
+  .ex-table td {
+    padding: 14px 16px;
+    vertical-align: top;
+    font-size: 12px;
+  }
+
+  .ex-name {
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+
+  .ex-target {
+    font-size: 10px;
+    color: var(--dust);
+    font-style: italic;
+  }
+
+  .ex-sets {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  .ex-cue {
+    font-size: 11px;
+    color: var(--pale);
+    line-height: 1.6;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 1px;
+    font-family: var(--mono);
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  .badge-key { background: #1e1a10; color: var(--amber); border: 1px solid var(--gold-muted); }
+  .badge-new { background: #101e12; color: #7ecf80; border: 1px solid #3a6b3d; }
+  .badge-upgraded { background: #1a1028; color: #a08de0; border: 1px solid #5c4a8a; }
+  .badge-db { background: var(--charcoal); color: var(--pale); border: 1px solid var(--stone); }
+
+  /* ── SECTION FINISHER ────────────────────────────────────────────── */
+  .finisher-block {
+    background: linear-gradient(135deg, #0e0e18 0%, var(--obsidian) 100%);
+    border: 1px solid #2a2a40;
+    padding: 20px 24px;
+    margin: 4px 0 0;
+  }
+
+  .finisher-block h4 {
+    font-family: var(--serif);
+    font-size: 13px;
+    color: #a08de0;
+    margin-bottom: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  .finisher-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .finisher-item {
+    background: #111120;
+    border: 1px solid #252540;
+    padding: 12px 14px;
+  }
+
+  .finisher-item .fi-name {
+    font-size: 12px;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+
+  .finisher-item .fi-detail {
+    font-size: 10.5px;
+    color: var(--dust);
+  }
+
+  /* ── GTG ─────────────────────────────────────────────────────────── */
+  .gtg-block {
+    background: var(--obsidian);
+    border: 1px solid var(--stone);
+    padding: 28px;
+    margin-bottom: 40px;
+    display: flex; gap: 24px; align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .gtg-icon {
+    font-size: 36px;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .gtg-content h3 {
+    font-family: var(--serif);
+    font-size: 16px;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+
+  .gtg-content p {
+    font-size: 12px;
+    color: var(--pale);
+    line-height: 1.8;
+    max-width: 540px;
+  }
+
+  /* ── PROPORTION TARGETS ──────────────────────────────────────────── */
+  .proportion-block {
+    background: var(--obsidian);
+    border: 1px solid var(--stone);
+  }
+
+  .proportion-header {
+    padding: 20px 24px;
+    background: var(--charcoal);
+    border-bottom: 1px solid var(--stone);
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--cream);
+  }
+
+  .proportion-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid #1e1e26;
+  }
+
+  @media (max-width: 500px) {
+    .proportion-row { grid-template-columns: 1fr 1fr; }
+  }
+
+  .proportion-cell {
+    padding: 16px 20px;
+    border-right: 1px solid #1e1e26;
+  }
+
+  .proportion-cell:last-child { border-right: none; }
+
+  .proportion-cell .pc-label {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dust);
+    margin-bottom: 6px;
+  }
+
+  .proportion-cell .pc-value {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .proportion-cell .pc-note {
+    font-size: 10px;
+    color: var(--dust);
+    font-style: italic;
+  }
+
+  /* ── PROGRESSION TREE ────────────────────────────────────────────── */
+  .prog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 2px;
+    margin-bottom: 48px;
+  }
+
+  .prog-track {
+    background: var(--obsidian);
+    border: 1px solid var(--stone);
+    padding: 20px;
+  }
+
+  .prog-track h4 {
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--gold);
+    margin-bottom: 14px;
+    letter-spacing: 0.03em;
+  }
+
+  .prog-step {
+    display: flex; gap: 10px; align-items: flex-start;
+    margin-bottom: 10px;
+    font-size: 11.5px;
+    color: var(--pale);
+  }
+
+  .prog-step .step-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--stone);
+    flex-shrink: 0;
+    margin-top: 2px;
+    min-width: 16px;
+  }
+
+  .prog-step.current {
+    color: var(--cream);
+  }
+
+  .prog-step.current .step-num {
+    color: var(--gold);
+  }
+
+  /* ── MILESTONES ──────────────────────────────────────────────────── */
+  .milestone-row {
+    display: flex; gap: 0;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+
+  .milestone {
+    flex: 1;
+    min-width: 140px;
+    background: var(--obsidian);
+    border: 1px solid var(--stone);
+    border-right: none;
+    padding: 20px;
+  }
+
+  .milestone:last-child { border-right: 1px solid var(--stone); }
+
+  .milestone .mo-month {
+    font-family: var(--mono);
+    font-size: 22px;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .milestone .mo-label {
+    font-family: var(--serif);
+    font-size: 12px;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+
+  .milestone .mo-desc {
+    font-size: 10.5px;
+    color: var(--dust);
+    line-height: 1.7;
+  }
+
+  /* ── NUTRITION ───────────────────────────────────────────────────── */
+  .nutrition-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  @media (max-width: 600px) {
+    .nutrition-grid { grid-template-columns: 1fr; }
+  }
+
+  .nutrition-card {
+    background: var(--obsidian);
+    border: 1px solid var(--stone);
+    padding: 24px;
+  }
+
+  .nutrition-card h4 {
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--cream);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--charcoal);
+  }
+
+  .nutrition-item {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px solid #1c1c24;
+    font-size: 12px;
+  }
+
+  .nutrition-item:last-child { border-bottom: none; }
+
+  .nutrition-item .ni-name { color: var(--pale); }
+  .nutrition-item .ni-val { color: var(--gold); font-family: var(--mono); }
+
+  .rule-block {
+    background: var(--obsidian);
+    border: 1px solid var(--stone);
+    border-left: 3px solid var(--gold);
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    font-size: 12px;
+    color: var(--pale);
+    line-height: 1.8;
+  }
+
+  .rule-block strong {
+    color: var(--cream);
+    font-family: var(--serif);
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  /* ── SCROLL NAV ──────────────────────────────────────────────────── */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,10,0.95);
+    border-bottom: 1px solid var(--stone);
+    padding: 0 24px;
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex; gap: 0; align-items: stretch;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-link {
+    color: var(--dust);
+    text-decoration: none;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 14px 16px;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .nav-link:hover {
+    color: var(--cream);
+    border-bottom-color: var(--gold);
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────────────────── */
+  .footer {
+    border-top: 1px solid var(--stone);
+    padding: 40px 24px;
+    text-align: center;
+  }
+
+  .footer-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .footer p {
+    font-size: 11px;
+    color: var(--stone);
+    line-height: 1.8;
+    margin-bottom: 8px;
+  }
+
+  .footer .footer-title {
+    font-family: var(--serif);
+    font-size: 16px;
+    color: var(--gold-muted);
+    margin-bottom: 16px;
+  }
+
+  /* ── CALLOUT ─────────────────────────────────────────────────────── */
+  .callout {
+    background: linear-gradient(135deg, #0e1a0e 0%, var(--obsidian) 100%);
+    border: 1px solid #2a402a;
+    padding: 20px 24px;
+    margin: 24px 0;
+    font-size: 12px;
+    color: var(--pale);
+    line-height: 1.8;
+  }
+
+  .callout strong {
+    color: #7ecf80;
+    display: block;
+    font-family: var(--serif);
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  /* ── DIFFERENCES SECTION ─────────────────────────────────────────── */
+  .diff-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 32px;
+  }
+
+  .diff-table thead tr {
+    background: var(--charcoal);
+  }
+
+  .diff-table thead th {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--dust);
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  .diff-table tbody tr {
+    border-bottom: 1px solid #1e1e26;
+  }
+
+  .diff-table td {
+    padding: 12px 16px;
+    font-size: 12px;
+    vertical-align: top;
+    color: var(--pale);
+  }
+
+  .diff-table td:first-child {
+    color: var(--cream);
+    font-family: var(--serif);
+    font-size: 13px;
+  }
+
+  .old-val { color: var(--stone) !important; text-decoration: line-through; }
+  .new-val { color: var(--amber) !important; }
+
+  @media print {
+    .nav, .hero-scroll { display: none; }
+    body { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-link" href="#philosophy">Philosophy</a>
+    <a class="nav-link" href="#changes">Changes</a>
+    <a class="nav-link" href="#push">Push</a>
+    <a class="nav-link" href="#pull">Pull</a>
+    <a class="nav-link" href="#legs">Legs</a>
+    <a class="nav-link" href="#gtg">GTG</a>
+    <a class="nav-link" href="#proportion">Proportion</a>
+    <a class="nav-link" href="#milestones">Timeline</a>
+    <a class="nav-link" href="#nutrition">Nutrition</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-deco">
+    <svg class="arc-left" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="200" cy="200" r="180" stroke="#c8a96e" stroke-width="1"/>
+      <circle cx="200" cy="200" r="140" stroke="#c8a96e" stroke-width="0.5"/>
+      <line x1="20" y1="200" x2="380" y2="200" stroke="#c8a96e" stroke-width="0.5"/>
+      <line x1="200" y1="20" x2="200" y2="380" stroke="#c8a96e" stroke-width="0.5"/>
+      <line x1="73" y1="73" x2="327" y2="327" stroke="#c8a96e" stroke-width="0.3"/>
+      <line x1="327" y1="73" x2="73" y2="327" stroke="#c8a96e" stroke-width="0.3"/>
+    </svg>
+    <svg class="arc-right" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="200" cy="200" r="180" stroke="#c8a96e" stroke-width="1"/>
+      <circle cx="200" cy="200" r="120" stroke="#c8a96e" stroke-width="0.4"/>
+    </svg>
+  </div>
+
+  <p class="hero-eyebrow">Rian · 65 kg · 175 cm · Home Training — Revised 2026</p>
+
+  <h1 class="hero-title">
+    DISCOBOLUS<br>
+    <span class="x-mark">×</span><br>
+    TOJI
+  </h1>
+
+  <p class="hero-subtitle">
+    The golden symmetry of Myron's athlete.<br>
+    The modern V-taper brutality of the Sorcerer Killer.
+  </p>
+
+  <div class="hero-divider"></div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-number">3×</span>
+      <span class="stat-label">Sessions / Week</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">φ</span>
+      <span class="stat-label">Adonis Index</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">12mo</span>
+      <span class="stat-label">Full Arc</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">2+5</span>
+      <span class="stat-label">kg Equipment</span>
+    </div>
+  </div>
+
+  <div class="callout" style="max-width:640px; text-align:left;">
+    <strong>What changed from Version 1</strong>
+    Same equipment. Same 3-day skeleton. But the programme has been recalibrated around one truth: Toji and the Discobolus are not competing ideals — they are the same ideal, seen two and a half millennia apart. Both demand <em>symmetria</em>: a shoulder-to-waist ratio near the golden ratio 1.618, total upper-back thickness, capped medial deltoids, and lean definition that makes every muscle readable. This version increases lateral delt volume, adds rear delt and upper trap work, introduces a dedicated aesthetics finisher, and corrects the original plan's underemphasis on the muscles that matter most from every angle — not just the front.
+  </div>
+
+  <p class="hero-scroll">↓ scroll</p>
+</header>
+
+<!-- PHILOSOPHY -->
+<div id="philosophy" style="background: var(--obsidian); border-top: 1px solid var(--stone); border-bottom: 1px solid var(--stone);">
+  <div class="section philosophy" style="padding-top: 60px; padding-bottom: 60px;">
+    <p class="section-label">The Theory</p>
+    <h2 class="section-title">Two Icons. One Body.</h2>
+    <div class="section-divider"></div>
+
+    <div class="philosophy-grid">
+      <div class="philosophy-col">
+        <h3>Myron's Discobolus (450 BC)</h3>
+        <p>
+          Art historian Kenneth Clark identified two defining qualities in Myron's sculpture: <span class="accent">rhythmos</span> — harmony and flow — and <span class="accent">symmetria</span> — perfect bodily proportion. The Discobolus is not the most muscular figure in antiquity; he is the most <em>balanced</em>. Every muscle contributes to a whole. The Greeks called this ideal kalokagathia — that physical and moral excellence are inseparable. The Discobolus gave birth to the Adonis Index: the shoulder circumference should be 1.618× the waist. This is your structural north star.
+        </p>
+      </div>
+      <div class="philosophy-col">
+        <h3>Toji Fushiguro (JJK, Modern)</h3>
+        <p>
+          Toji's physique is the Discobolus rendered in 2D ink and shading — same proportions, more explicit muscularity. The crucial analysis: <span class="accent">it's the V-taper above everything else</span>. Wide lats, capped medial delts, a narrow waist, thick upper back (traps, rhomboids, rear delts), and arms that are visible, veined, and dense without being bodybuilder-bloated. His body is built for motion — not for a front-facing mirror pose. He looks powerful from every angle. That requires the muscles most gym-goers ignore: the full posterior shoulder, the upper traps, the serratus.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT CHANGED -->
+<div id="changes">
+  <div class="section">
+    <p class="section-label">Version 2.0</p>
+    <h2 class="section-title">What Has Been Upgraded</h2>
+    <div class="section-divider"></div>
+
+    <div class="upgrade-banner">
+      <div class="icon">⚠</div>
+      <div>
+        <h4>Critical Gap in V1</h4>
+        <p>The original programme was excellent for chest and lat width but under-served the medial and posterior deltoids — the two muscle groups most responsible for the Toji silhouette. Lateral raises were in the plan but at too low a volume (4×15–20 once a week). Evidence indicates the lateral deltoid needs 10–20 sets per week across multiple sessions for meaningful hypertrophy. This has been corrected. Rear delts and upper traps were entirely absent. They are now present on every single training day.</p>
+      </div>
+    </div>
+
+    <table class="diff-table">
+      <thead>
+        <tr>
+          <th>Element</th>
+          <th>Version 1</th>
+          <th>Version 2 (This Plan)</th>
+          <th>Why</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Lateral Raise Volume</td>
+          <td class="old-val">4 sets, Push day only</td>
+          <td class="new-val">12–16 sets/week across all 3 days</td>
+          <td style="font-size:11px;color:var(--dust);">Evidence: 10–20 weekly sets optimal for lateral delt hypertrophy. Side delts recover fast — train them frequently at lower per-session volume.</td>
+        </tr>
+        <tr>
+          <td>Rear Delt Work</td>
+          <td class="old-val">None explicit</td>
+          <td class="new-val">Rear delt face-pulls / reverse fly on Pull + Legs days</td>
+          <td style="font-size:11px;color:var(--dust);">Rear delts create the "capped" 3D shoulder visible from every angle. Missing in V1.</td>
+        </tr>
+        <tr>
+          <td>Upper Traps / Neck</td>
+          <td class="old-val">Not addressed</td>
+          <td class="new-val">DB shrug + scap pull emphasis</td>
+          <td style="font-size:11px;color:var(--dust);">Toji's neck-trap column is iconic. It also makes the V-taper more pronounced by contrast.</td>
+        </tr>
+        <tr>
+          <td>Serratus / Core Visible</td>
+          <td class="old-val">Minimal</td>
+          <td class="new-val">Push-up protraction + serratus punch added</td>
+          <td style="font-size:11px;color:var(--dust);">The Discobolus and Toji both show visible serratus — it frames the abs laterally and suggests athletic leanness.</td>
+        </tr>
+        <tr>
+          <td>Aesthetics Finisher</td>
+          <td class="old-val">No dedicated block</td>
+          <td class="new-val">3-exercise pump finisher on each training day</td>
+          <td style="font-size:11px;color:var(--dust);">The finisher hits the "show muscles" in compression shirts: bi's, tri's, side delts. 10 min, high-rep, metabolic stress.</td>
+        </tr>
+        <tr>
+          <td>Rest Between Sets</td>
+          <td class="old-val">2–3 min (compounds), 60–90s (isolation)</td>
+          <td class="new-val">Same — retained. Evidence supports 2–3 min for hypertrophy in compounds.</td>
+          <td style="font-size:11px;color:var(--dust);">No change needed. Correct.</td>
+        </tr>
+        <tr>
+          <td>Greasing the Groove</td>
+          <td class="old-val">Pull-ups only</td>
+          <td class="new-val">Pull-ups + optional lateral raise micro-sets (1×10 lightweight)</td>
+          <td style="font-size:11px;color:var(--dust);">Low-intensity side delt sub-threshold work adds cumulative weekly volume without taxing recovery.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SCHEDULE -->
+<div style="background: var(--obsidian); border-top: 1px solid var(--stone); border-bottom: 1px solid var(--stone);">
+  <div class="section" style="padding-top: 50px; padding-bottom: 50px;">
+    <p class="section-label">Weekly Structure</p>
+    <h2 class="section-title">The Three-Day Arc</h2>
+
+    <div class="week-grid">
+      <div class="day-cell active">
+        <div class="day-name">Mon</div>
+        <div class="day-label">Push</div>
+        <div class="day-sub">Chest · Shoulders · Tri</div>
+      </div>
+      <div class="day-cell">
+        <div class="day-name">Tue</div>
+        <div class="day-label">Rest</div>
+        <div class="day-sub">stretch / walk</div>
+      </div>
+      <div class="day-cell active">
+        <div class="day-name">Wed</div>
+        <div class="day-label">Pull</div>
+        <div class="day-sub">Back · Bi's · Rear Delt</div>
+      </div>
+      <div class="day-cell">
+        <div class="day-name">Thu</div>
+        <div class="day-label">Rest</div>
+        <div class="day-sub">stretch / walk</div>
+      </div>
+      <div class="day-cell active">
+        <div class="day-name">Fri</div>
+        <div class="day-label">Legs+Core</div>
+        <div class="day-sub">Lower · Abs · Rear Delt</div>
+      </div>
+      <div class="day-cell">
+        <div class="day-name">Sat</div>
+        <div class="day-label">Rest</div>
+        <div class="day-sub">or GTG</div>
+      </div>
+      <div class="day-cell">
+        <div class="day-name">Sun</div>
+        <div class="day-label">Rest</div>
+        <div class="day-sub">or GTG</div>
+      </div>
+    </div>
+
+    <p style="font-size: 11.5px; color: var(--dust); line-height: 1.8;">
+      Sessions run <strong style="color: var(--pale);">55–70 min</strong> (slightly longer than V1 due to finisher). Rest <strong style="color: var(--pale);">2–3 min</strong> between compound sets. <strong style="color: var(--pale);">60–90s</strong> between isolation work. Finisher: <strong style="color: var(--pale);">30–45s rest only</strong> — keep it metabolic.
+    </p>
+  </div>
+</div>
+
+<!-- PUSH DAY -->
+<div id="push">
+  <div class="section">
+    <p class="section-label">Monday</p>
+    <h2 class="section-title">Push Day — Chest · Shoulders · Triceps · Serratus</h2>
+    <div class="section-divider"></div>
+
+    <div class="day-card">
+      <div class="day-card-header">
+        <div>
+          <span class="day-number">Day 01</span>
+          <h2>Push</h2>
+        </div>
+        <div class="day-meta">
+          <span>⏱ 55–70 min</span>
+          <span>💪 9 exercises</span>
+          <span>+ finisher</span>
+        </div>
+      </div>
+      <div class="day-card-body">
+        <table class="ex-table">
+          <thead>
+            <tr>
+              <th style="width:30%">Exercise</th>
+              <th style="width:16%">Sets × Reps</th>
+              <th>Execution Cue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="ex-name"><span class="badge badge-key">Key</span>Pseudo Planche Push-up</div>
+                <div class="ex-target">Chest, anterior delts, triceps, serratus</div>
+              </td>
+              <td class="ex-sets">4 × 8–12</td>
+              <td class="ex-cue">Lean forward, fingers pointing back slightly. Protract at top to hit serratus. Full lock-out.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="ex-name">Decline Push-up (feet on bed)</div>
+                <div class="ex-target">Upper chest, anterior deltoids</div>
+              </td>
+              <td class="ex-sets">4 × 10–12</td>
+              <td class="ex-cue">Higher feet = more upper chest emphasis. 3s negative. Squeeze at top.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="ex-name"><span class="badge badge-key">Key</span>Bed Frame Dip</div>
+                <div class="ex-target">Lower chest, triceps</div>
+              </td>
+              <td class="ex-sets">4 × 10–15</td>
+              <td class="ex-cue">Lean torso forward for chest emphasis. Upright = tricep focus only. Full ROM down.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="ex-name">Archer Push-up</div>
+                <div class="ex-target">Unilateral chest, corrects imbalances</div>
+              </td>
+              <td class="ex-sets">3 × 8–10 ea.</td>
+              <td class="ex-cue">Lead with weaker arm. Full ROM, controlled descent. Don't rush this one.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="ex-name">Pike Push-up</div>
+                <div class="ex-target">Overhead pressing pattern, anterior delts</div>
+              </td>
+              <td class="ex-sets">4 × 8–12</td>
+              <td class="ex-cue">Hips high, head through arms at bottom. Progress to wall handstand push-up over time.</td>
+            </tr>
+            <tr class="new-exercise">
+              <td>
+                <div class="ex-name"><span class="badge badge-new">New</span><span class="badge badge-db">DB</span>DB Lateral Raise — Heavy Set</div>
+                <div class="ex-target">Medial deltoid — shoulder width, V-taper foundation</div>
+              </td>
+              <td class="ex-sets">4 × 10–12</td>
+              <td class="ex-cue">Slight forward lean (20°). Lead with elbows, NOT wrists. Hold 1s at top. 3s negative. This is your heaviest lateral raise of the week. Control is non-negotiable.</td>
+            </tr>
+            <tr class="new-exercise">
+              <td>
+                <div class="ex-name"><span class="badge badge-new">New</span><span class="badge badge-db">DB</span>DB Lateral Raise — High Rep Drop</div>
+                <div class="ex-target">Medial deltoid — metabolic stress, hypertrophy cap</div>
+              </td>
+              <td class="ex-sets">3 × 18–25</td>
+              <td class="ex-cue">Immediately after heavy sets, drop to lighter weight (or same weight, shorter ROM). Burn through high reps. Both heads of the lateral deltoid respond to this rep range. No rest between the heavy and light set — treat it as a drop set if you can.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="ex-name"><span class="badge badge-db">DB</span>DB Floor Press</div>
+                <div class="ex-target">Chest, triceps — loaded pressing</div>
+              </td>
+              <td class="ex-sets">4 × 10–15</td>
+              <td class="ex-cue">Lie flat, press both up together. 1s pause at chest. 3s down. Builds pressing strength for future weighted work.</td>
+            </tr>
+            <tr class="new-exercise">
+              <td>
+                <div class="ex-name"><span class="badge badge-new">New</span>Serratus Punch (Push-up + Protraction)</div>
+                <div class="ex-target">Serratus anterior — the "boxer's muscle" that frames abs</div>
+              </td>
+              <td class="ex-sets">3 × 12–15</td>
+              <td class="ex-cue">From push-up top position: push further forward, rounding upper back, pushing shoulder blades apart. Hold 2s. Return. This makes the fingers of muscle beside the ribs visible when lean.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="finisher-block">
+          <h4>🔱 Push Day Finisher — 10 min, 30–45s rest only</h4>
+          <div class="finisher-grid">
+            <div class="finisher-item">
+              <div class="fi-name">Diamond Push-up</div>
+              <div class="fi-detail">3 × 15–20 · Triceps mass, inner chest</div>
+            </div>
+            <div class="finisher-item">
+              <div class="fi-name">DB Lateral Raise (very light)</div>
+              <div class="fi-detail">3 × 20–25 · Final medial delt pump · use minimal weight, full squeeze</div>
+            </div>
+            <div class="finisher-item">
+              <div class="fi-name">Wide Push-up Hold</div>
+              <div class="fi-detail">3 × 30s isometric · Mid-chest, serratus, shoulder stability</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PULL DAY -->
+<div id="pull" style="background: var(--obsidian); border-top: 1px solid var(--stone); border-bottom: 1px solid var(--stone);">
+  <div class="section">
+    <p class="section-label">Wednesday</p>
+    <h2 class="section-title">Pull Day — Back · Biceps · Rear Delts · Traps</h2>
+    <div class="section-divider"></div>
+
+    <div class="day-card" style="border-color: #2a2a3a;">
+      <div class="day-card-header" style="background: linear-gradient(135deg, #0f0f1a 0%, #111118 100%);">
+        <div>
+          <span class="day-number">Day 02</span>
+          <h2>Pull</h2>
+        </div>
+        <div class="day-meta">
+          <span>⏱ 55–70 min</span>
+          <span>💪 9 exercises</span>
+          <span>+ finisher</span>
+        </div>
+      </div>
+      <div class="day-card-body">
+        <table class="ex-table">
+          <thead>
+            <tr>
+              <th style="width:30%">Exercise</th>
+              <th style="width:16%">Sets × Reps</th>
+              <th>Execution Cue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="ex-name"><span class="badge badge-key">Key</span>Pull-up (overhand, wide grip)</div>
+                <div class="ex-target">Lats, upper back, biceps — lat width</div>
+              </td>
+              <td class="ex-sets">5 × max</td>
+              <td class="ex-cue">Full dead hang at bottom — complete stretch. Chest to bar at top. 3s down. Wide grip = more lat, narrower = more bicep. Prioritize wide for V-taper.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="ex-name"><span class="badge badge-key">Key</span>Chin-up (underhand)</div>
+                <div class="ex-target">Biceps, lower lats — arm density</div>
+              </td>
+              <td class="ex-sets">4 × max</td>
+              <td class="ex-cue">Supinate hard at top. Dead hang at bottom. Bicep peak is built here.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="ex-name">Negative Pull-up (5s descent)</div>
+                <div class="ex-target">Eccentric overload — builds pull-up count fast</div>
+              </td>
+              <td class="ex-sets">3 × 5–6</td>
+              <td class="ex-cue">Jump to top position. Lower in exactly 5 seconds. No cheating. This is your eccentric lat and bicep stimulus.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="ex-name">Inverted Row</div>
+                <div class="ex-target">Mid-back, rhomboids, posterior delts</div>
+              </td>
+              <td class="ex-sets">4 × 12–15</td>
+              <td class="ex-cue">Body straight as a plank. Pull chest to bar. At the top: squeeze shoulder blades together and hold 1s. This activates rhomboids properly.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="ex-name"><span class="badge badge-db">DB</span>DB Single-Arm Row</div>
+                <div class="ex-target">Lat thickness, mid-back — mass builder</div>
+              </td>
+              <td class="ex-sets">4 × 10–12 ea.</td>
+              <td class="ex-cue">Brace on bed. Full stretch at bottom, drive elbow to hip — not elbow to ceiling. 3s down. This is your primary lat thickness movement.</td>
+            </tr>
+            <tr class="new-exercise">
+              <td>
+                <div class="ex-name"><span class="badge badge-new">New</span><span class="badge badge-db">DB</span>DB Rear Delt Fly (bent over)</div>
+                <div class="ex-target">Posterior deltoid — the missing muscle for 3D shoulder aesthetics</div>
+              </td>
+              <td class="ex-sets">4 × 15–20</td>
+              <td class="ex-cue">Hinge 45° forward. Slight bend in elbows — do NOT straighten them. Lead with elbows, raise to shoulder height. Pinch shoulder blades at top. Rear delts are a small muscle — don't ego-lift. Use both 5kg dumbbells. Slow and controlled.</td>
+            </tr>
+            <tr class="new-exercise">
+              <td>
+                <div class="ex-name"><span class="badge badge-new">New</span><span class="badge badge-db">DB</span>DB Shrug</div>
+                <div class="ex-target">Upper trapezius — neck-to-shoulder column</div>
+              </td>
+              <td class="ex-sets">4 × 15–20</td>
+              <td class="ex-cue">Hold both dumbbells. Shrug straight UP — not forward or backward. Hold 1s at top. Full stretch at bottom. Traps respond to moderate-high reps. This builds the neck-trap silhouette that makes a V-taper look imposing from the front.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="ex-name"><span class="badge badge-db">DB</span>DB Bicep Curl</div>
+                <div class="ex-target">Bicep isolation — arm density and definition</div>
+              </td>
+              <td class="ex-sets">3 × 12–15</td>
+              <td class="ex-cue">Alternating. Full supination at top. 3s negative. No swinging. Squeeze and twist hard at peak.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="ex-name">Scapular Pull-up + Dead Hang</div>
+                <div class="ex-target">Shoulder health, scapula stability, grip</div>
+              </td>
+              <td class="ex-sets">3 × 10 + 30s</td>
+              <td class="ex-cue">10 scap pulls then hold dead hang for 30s without break. Builds the foundation for injury-free long-term pulling.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="finisher-block">
+          <h4>🔱 Pull Day Finisher — 10 min, 30–45s rest only</h4>
+          <div class="finisher-grid">
+            <div class="finisher-item">
+              <div class="fi-name">DB Lateral Raise (light)</div>
+              <div class="fi-detail">4 × 15–20 · Second lateral delt session of the week · controlled and squeezed</div>
+            </div>
+            <div class="finisher-item">
+              <div class="fi-name">Hammer Curl</div>
+              <div class="fi-detail">3 × 12–15 · Brachialis + brachioradialis · arm thickness from the side</div>
+            </div>
+            <div class="finisher-item">
+              <div class="fi-name">Face-Pull (towel or resistance)</div>
+              <div class="fi-detail">3 × 15–20 · Rear delt + external rotation · shoulder longevity</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LEGS DAY -->
+<div id="legs">
+  <div class="section">
+    <p class="section-label">Friday</p>
+    <h2 class="section-title">Legs & Core — Lower Body · Abs · Rear Delt · Calves</h2>
+    <div class="section-divider"></div>
+
+    <div class="day-card">
+      <div class="day-card-header">
+        <div>
+          <span class="day-number">Day 03</span>
+          <h2>Legs & Core</h2>
+        </div>
+        <div class="day-meta">
+          <span>⏱ 55–70 min</span>
+          <span>💪 9 exercises</span>
+          <span>+ finisher</span>
+        </div>
+      </div>
+      <div class="day-card-body">
+        <table class="ex-table">
+          <thead>
+            <tr>
+              <th style="width:30%">Exercise</th>
+              <th style="width:16%">Sets × Reps</th>
+              <th>Execution Cue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="ex-name"><span class="badge badge-key">Key</span><span class="badge badge-db">DB</span>DB Bulgarian Split Squat</div>
+                <div class="ex-target">Quads, glutes — primary leg hypertrophy driver</div>
+              </td>
+              <td class="ex-sets">4 × 10–12 ea.</td>
+              <td class="ex-cue">Hold both dumbbells. Rear foot on bed. Knee tracks over toe. Full depth. Toji's legs look powerful because they're actually trained — don't skip this.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="ex-name"><span class="badge badge-db">DB</span>DB Romanian Deadlift</div>
+                <div class="ex-target">Hamstrings, glutes, lower back</div>
+              </td>
+              <td class="ex-sets">4 × 10–12</td>
+              <td class="ex-cue">Hinge at hips, soft knee. Chase the hamstring stretch. Drive hips forward to stand. 3s down.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="ex-name"><span class="badge badge-db">DB</span>DB Hip Thrust (shoulders on bed)</div>
+                <div class="ex-target">Glutes, hamstrings — posterior chain power</div>
+              </td>
+              <td class="ex-sets">4 × 15–20</td>
+              <td class="ex-cue">Dumbbells on hips. Squeeze hard at top. 1s pause. Full range of hip extension.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="ex-name">Hanging Knee Raise → Leg Raise</div>
+                <div class="ex-target">Lower abs, hip flexors</div>
+              </td>
+              <td class="ex-sets">4 × 12–15</td>
+              <td class="ex-cue">Start with knees, progress to straight legs. Control the descent — don't swing. Visible lower abs are built here.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="ex-name">Dragon Flag Negative</div>
+                <div class="ex-target">Full core — the signature Toji movement</div>
+              </td>
+              <td class="ex-sets">3 × 4–5</td>
+              <td class="ex-cue">Grip bed frame behind head. Lower in exactly 5s. Pull back up. This is the single best core exercise for developing the abs-serratus combination visible on Toji.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="ex-name">Hollow Body Hold</div>
+                <div class="ex-target">Anterior core — foundational tension</div>
+              </td>
+              <td class="ex-sets">3 × 30–45s</td>
+              <td class="ex-cue">Lower back pressed flat. Arms overhead. Legs low but not touching. This is the same bracing pattern used in the Discobolus's rotational throw.</td>
+            </tr>
+            <tr class="new-exercise">
+              <td>
+                <div class="ex-name"><span class="badge badge-new">New</span><span class="badge badge-db">DB</span>DB Rear Delt Fly (third session)</div>
+                <div class="ex-target">Posterior deltoid — frequency is the key to rear delt growth</div>
+              </td>
+              <td class="ex-sets">3 × 15–20</td>
+              <td class="ex-cue">Same as Pull Day: bent over 45°, slight elbow bend, lead with elbows. Rear delts recover fast — training them 3× per week is evidence-based for small muscles. This is the third hit. Keep the weight light and focus on contraction.</td>
+            </tr>
+            <tr class="new-exercise">
+              <td>
+                <div class="ex-name"><span class="badge badge-new">New</span><span class="badge badge-db">DB</span>DB Lateral Raise (third session)</div>
+                <div class="ex-target">Medial deltoid — weekly frequency dose</div>
+              </td>
+              <td class="ex-sets">3 × 15–20</td>
+              <td class="ex-cue">Third and final lateral raise session of the week. Lighter weight — this is volume accumulation, not max effort. Focus entirely on mind-muscle connection. The goal is cumulative 12–16 working sets per week across all three days.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="ex-name">Single-Leg Calf Raise</div>
+                <div class="ex-target">Gastrocnemius — the forgotten muscle</div>
+              </td>
+              <td class="ex-sets">3 × 20 ea.</td>
+              <td class="ex-cue">Full range — all the way up, all the way down. Slow. Add weight over time by holding a dumbbell.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="finisher-block">
+          <h4>🔱 Legs & Core Finisher — 10 min, 30–45s rest only</h4>
+          <div class="finisher-grid">
+            <div class="finisher-item">
+              <div class="fi-name">Superman Hold</div>
+              <div class="fi-detail">3 × 15 · Lower back, glutes · hold 2s at top each rep</div>
+            </div>
+            <div class="finisher-item">
+              <div class="fi-name">Lateral Raise — Final Burn</div>
+              <div class="fi-detail">2 × 25–30 · Very light · pure pump · cap the week's delt volume</div>
+            </div>
+            <div class="finisher-item">
+              <div class="fi-name">Plank Hold</div>
+              <div class="fi-detail">3 × 45–60s · Full-body tension · anterior core and posterior chain together</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GREASING THE GROOVE -->
+<div id="gtg" style="background: var(--obsidian); border-top: 1px solid var(--stone); border-bottom: 1px solid var(--stone);">
+  <div class="section" style="padding-top: 60px; padding-bottom: 60px;">
+    <p class="section-label">Every Day</p>
+    <h2 class="section-title">Greasing the Groove — Non-Negotiable</h2>
+    <div class="section-divider"></div>
+
+    <div class="gtg-block">
+      <div class="gtg-icon">🔔</div>
+      <div class="gtg-content">
+        <h3>Every time you walk past the bar — 1–2 pull-ups or a 20s dead hang</h3>
+        <p>
+          This is unchanged from V1 and it stays because it works. Never to failure — stay at 50% of your max. 8–10 times per day, this adds massive pull-up volume without touching recovery. This is how people go from 3 pull-ups to 15 in 3 months.<br><br>
+          <strong style="color: var(--gold);">V2 addition:</strong> On non-training days, optionally add 1×10 lateral raises with a very light weight every time you do a GTG pull-up set. Sub-threshold, never to failure. This extends your lateral delt frequency without adding recovery cost — the side delts are a small, fast-recovering muscle. Even 3–4 extra sub-maximal sets per day on rest days accumulates meaningful additional weekly volume.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROPORTION TARGETS -->
+<div id="proportion">
+  <div class="section">
+    <p class="section-label">The Greek Ideal × Modern Aesthetics</p>
+    <h2 class="section-title">Proportion Targets — The Adonis Index</h2>
+    <div class="section-divider"></div>
+
+    <p style="font-size: 12.5px; color: var(--pale); line-height: 1.9; margin-bottom: 28px; max-width: 640px;">
+      The Discobolus established the Adonis Index: shoulder circumference should be 1.618× the waist circumference. This is identical to what makes Toji's silhouette so visually striking. At your current stats (65 kg, 175 cm), here are the targets to build toward. Track these every 4 weeks alongside your photos.
+    </p>
+
+    <div class="proportion-block" style="margin-bottom: 40px;">
+      <div class="proportion-header">Current → Target Measurements</div>
+      <div class="proportion-row">
+        <div class="proportion-cell">
+          <div class="pc-label">Shoulder Width</div>
+          <div class="pc-value">Target: ~120 cm</div>
+          <div class="pc-note">1.618 × waist</div>
+        </div>
+        <div class="proportion-cell">
+          <div class="pc-label">Waist</div>
+          <div class="pc-value">Target: ~74 cm</div>
+          <div class="pc-note">Lean, not restricted</div>
+        </div>
+        <div class="proportion-cell">
+          <div class="pc-label">Ratio φ</div>
+          <div class="pc-value">1.618</div>
+          <div class="pc-note">Golden ratio — Adonis Index</div>
+        </div>
+        <div class="proportion-cell">
+          <div class="pc-label">Body Fat</div>
+          <div class="pc-value">10–13%</div>
+          <div class="pc-note">Where definition appears</div>
+        </div>
+      </div>
+      <div class="proportion-row" style="border-bottom: none;">
+        <div class="proportion-cell">
+          <div class="pc-label">Chest</div>
+          <div class="pc-value">Target: ~100 cm</div>
+          <div class="pc-note">Full upper chest</div>
+        </div>
+        <div class="proportion-cell">
+          <div class="pc-label">Arms (flexed)</div>
+          <div class="pc-value">Target: ~37–38 cm</div>
+          <div class="pc-note">Visible in compression shirts</div>
+        </div>
+        <div class="proportion-cell">
+          <div class="pc-label">Neck + Trap</div>
+          <div class="pc-value">Thick column</div>
+          <div class="pc-note">Most underrated visible feature</div>
+        </div>
+        <div class="proportion-cell">
+          <div class="pc-label">Check-in</div>
+          <div class="pc-value">Every 4 weeks</div>
+          <div class="pc-note">Same pose, same light</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Why Compression Shirts Work</strong>
+      A compression shirt compresses the waist and chest slightly, but the shoulders and arms push outward against the fabric. The visual result is a more pronounced V-taper. The muscles that show through compression fabric: medial deltoids (shoulder caps), bicep/tricep mass, upper chest fullness, and the neck-trap column. Every upgrade in this V2 programme directly targets these areas.
+    </div>
+  </div>
+</div>
+
+<!-- PROGRESSIONS -->
+<div style="background: var(--obsidian); border-top: 1px solid var(--stone); border-bottom: 1px solid var(--stone);">
+  <div class="section" style="padding-top: 60px; padding-bottom: 60px;">
+    <p class="section-label">When to Advance</p>
+    <h2 class="section-title">Progressions</h2>
+    <div class="section-divider"></div>
+
+    <p style="font-size: 12px; color: var(--dust); margin-bottom: 28px;">
+      Advance when controlled for 2 consecutive sessions at the top of the rep range. Never stay comfortable.
+    </p>
+
+    <div class="prog-grid">
+      <div class="prog-track">
+        <h4>Horizontal Push</h4>
+        <div class="prog-step current"><span class="step-num">I</span> Pseudo planche push-up ← you're here</div>
+        <div class="prog-step"><span class="step-num">II</span> Archer push-up</div>
+        <div class="prog-step"><span class="step-num">III</span> One-arm push-up negative</div>
+        <div class="prog-step"><span class="step-num">IV</span> Full one-arm push-up</div>
+      </div>
+      <div class="prog-track">
+        <h4>Vertical Push</h4>
+        <div class="prog-step current"><span class="step-num">I</span> Pike push-up ← you're here</div>
+        <div class="prog-step"><span class="step-num">II</span> Wall handstand push-up</div>
+        <div class="prog-step"><span class="step-num">III</span> Freestanding HSPU negative</div>
+        <div class="prog-step"><span class="step-num">IV</span> Freestanding HSPU</div>
+      </div>
+      <div class="prog-track">
+        <h4>Pull-up</h4>
+        <div class="prog-step current"><span class="step-num">II</span> Full pull-up ← you're here</div>
+        <div class="prog-step"><span class="step-num">III</span> L-sit pull-up</div>
+        <div class="prog-step"><span class="step-num">IV</span> Weighted / one-arm negatives</div>
+      </div>
+      <div class="prog-track">
+        <h4>Lateral Raise</h4>
+        <div class="prog-step current"><span class="step-num">I</span> 2×5kg dumbbells ← start</div>
+        <div class="prog-step"><span class="step-num">II</span> 8–10 kg (upgrade equipment)</div>
+        <div class="prog-step"><span class="step-num">III</span> 12–14 kg with perfect form</div>
+        <div class="prog-step"><span class="step-num">IV</span> Cable or band variation</div>
+      </div>
+      <div class="prog-track">
+        <h4>Core</h4>
+        <div class="prog-step current"><span class="step-num">II</span> Dragon flag negative ← you're here</div>
+        <div class="prog-step"><span class="step-num">III</span> Full dragon flag</div>
+        <div class="prog-step"><span class="step-num">IV</span> Dragon flag + L-sit combo</div>
+      </div>
+      <div class="prog-track">
+        <h4>Leg</h4>
+        <div class="prog-step current"><span class="step-num">II</span> Bulgarian split squat ← you're here</div>
+        <div class="prog-step"><span class="step-num">III</span> Shrimp squat</div>
+        <div class="prog-step"><span class="step-num">IV</span> Pistol squat</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MILESTONES -->
+<div id="milestones">
+  <div class="section">
+    <p class="section-label">Timeline</p>
+    <h2 class="section-title">Monthly Milestones</h2>
+    <div class="section-divider"></div>
+
+    <div class="milestone-row">
+      <div class="milestone">
+        <div class="mo-month">01</div>
+        <div class="mo-label">Foundation</div>
+        <div class="mo-desc">5 pull-ups. Lateral raise form locked in. Rear delt work feels awkward — that's normal. Finisher feels hard. That's the point.</div>
+      </div>
+      <div class="milestone">
+        <div class="mo-month">02</div>
+        <div class="mo-label">First Changes</div>
+        <div class="mo-desc">8 pull-ups. Shoulder caps beginning to show in photos. Upper back visibly thicker. Arms starting to push compression fabric.</div>
+      </div>
+      <div class="milestone">
+        <div class="mo-month">03</div>
+        <div class="mo-label">People Notice</div>
+        <div class="mo-desc">10 pull-ups. Shoulder width clearly broader. Obliques and serratus visible when flexed. Neck-trap column emerging. V-shape undeniable in fitted shirts.</div>
+      </div>
+      <div class="milestone">
+        <div class="mo-month">06</div>
+        <div class="mo-label">Undeniable Physique</div>
+        <div class="mo-desc">15 pull-ups. Dragon flag. Full six-pack. Capped 3D delts. Lat flare when walking. The compression shirt hangs differently now.</div>
+      </div>
+      <div class="milestone">
+        <div class="mo-month">12</div>
+        <div class="mo-label">Convergence</div>
+        <div class="mo-desc">Myron's symmetria. Toji's V-taper. Visible from every angle. The golden ratio shoulder-to-waist achieved. The body Myron would have sculpted if he'd seen a gym.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NUTRITION -->
+<div id="nutrition" style="background: var(--obsidian); border-top: 1px solid var(--stone); border-bottom: 1px solid var(--stone);">
+  <div class="section" style="padding-top: 60px; padding-bottom: 60px;">
+    <p class="section-label">Fuel</p>
+    <h2 class="section-title">Nutrition — Unchanged Core, Toji Refinement</h2>
+    <div class="section-divider"></div>
+
+    <div class="nutrition-grid">
+      <div class="nutrition-card">
+        <h4>Daily Bengali Meal Plan — 140g+ Protein</h4>
+        <div class="nutrition-item">
+          <span class="ni-name">Breakfast: 3 dim bhaji + 2 ruti</span>
+          <span class="ni-val">~25g</span>
+        </div>
+        <div class="nutrition-item">
+          <span class="ni-name">Lunch: 2 pieces rohu/catla + dal + bhaat</span>
+          <span class="ni-val">~45g</span>
+        </div>
+        <div class="nutrition-item">
+          <span class="ni-name">Snack: glass dudh or extra dim</span>
+          <span class="ni-val">~15g</span>
+        </div>
+        <div class="nutrition-item">
+          <span class="ni-name">Dinner: chicken curry + dal + ruti</span>
+          <span class="ni-val">~50g</span>
+        </div>
+        <div class="nutrition-item" style="border-top: 1px solid var(--stone); margin-top: 8px; padding-top: 12px;">
+          <span class="ni-name" style="color: var(--cream); font-weight: 600;">Total</span>
+          <span class="ni-val" style="font-size: 14px;">~135g</span>
+        </div>
+      </div>
+
+      <div class="nutrition-card">
+        <h4>Cut These — The Toji Diet Has No Room</h4>
+        <div class="nutrition-item">
+          <span class="ni-name" style="color: #e06060;">✕ Coke</span>
+          <span class="ni-val" style="color: var(--dust); font-size: 10px;">max once/week</span>
+        </div>
+        <div class="nutrition-item">
+          <span class="ni-name" style="color: #e06060;">✕ Sugary powdered milk coffee</span>
+          <span class="ni-val" style="color: var(--dust); font-size: 10px;">halve the sugar</span>
+        </div>
+        <div class="nutrition-item">
+          <span class="ni-name" style="color: #e06060;">✕ Skipping breakfast</span>
+          <span class="ni-val" style="color: var(--dust); font-size: 10px;">3 eggs within 1hr of waking</span>
+        </div>
+        <div class="nutrition-item">
+          <span class="ni-name" style="color: #e06060;">✕ 2am random snacking</span>
+          <span class="ni-val" style="color: var(--dust); font-size: 10px;">eat protein instead</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule-block">
+      <strong>The Toji Leanness Note</strong>
+      Toji's body fat is estimated at 8–10%. The Discobolus shows every muscle without exaggeration. At 65 kg and 175 cm, you are already in a good range for body composition. The goal is not to lose weight — it's to maintain weight while adding muscle to the right places (shoulders, lats, traps) and staying lean. Rice is not your enemy. Protein and consistency are your allies. The visible definition will come from progressive muscle gain + maintained leanness, not from starvation.
+    </div>
+
+    <div class="rule-block" style="border-left-color: var(--red);">
+      <strong>The One New Rule for V2</strong>
+      On training days, add one extra protein source post-workout within 45 minutes. This doesn't need to be a shake — one extra egg, an extra piece of fish, or a glass of milk does the job. The increased volume in this programme creates more muscle protein synthesis demand. Feed it.
+    </div>
+  </div>
+</div>
+
+<!-- THE THREE NON-NEGOTIABLES -->
+<div>
+  <div class="section">
+    <p class="section-label">The Contract</p>
+    <h2 class="section-title">Four Non-Negotiables</h2>
+    <div class="section-divider"></div>
+
+    <div class="rule-block">
+      <strong>3× Show Up</strong>
+      Three sessions per week, every week. Consistency across 12 months beats intensity across 2 weeks. This is not a new rule. It is the only rule.
+    </div>
+    <div class="rule-block">
+      <strong>140g+ Protein</strong>
+      Muscle is built in the kitchen as much as in the session. Miss protein and the sessions are half as effective. Hit it every single day, not just training days.
+    </div>
+    <div class="rule-block">
+      <strong>10–16 Lateral Raise Sets / Week</strong>
+      This is new and it is mandatory. The medial deltoid is the single biggest visual difference-maker for shoulder width, V-taper, and compression shirt aesthetics. Three sessions per week. Track the sets. Don't skip the finisher.
+    </div>
+    <div class="rule-block">
+      <strong>4-Week Photo Check-in</strong>
+      Same pose, same light, every 4 weeks. Progress in photos will motivate more than any other metric. The convergence will be documented.
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-title">Discobolus × Toji</div>
+    <p>
+      <em>"Myron has created the enduring pattern of athletic energy."</em> — Kenneth Clark, 1956
+    </p>
+    <p style="margin-top: 12px;">
+      Version 2.0 · Rian · 65 kg · 175 cm · Pull-up Bar + 2×5 kg Dumbbells + Bed Frame · Home Training Only
+    </p>
+    <p style="margin-top: 8px; font-size: 10px;">
+      Evidence base: systematic review on deltoid activation (ScienceDirect 2022); dumbbell vs. cable lateral raise hypertrophy RCT (Frontiers in Physiology 2025); RP Strength side delt hypertrophy protocols; Adonis Index / golden ratio proportion targets from classical scholarship.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
